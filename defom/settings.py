@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -45,7 +46,15 @@ INSTALLED_APPS = [
     'users'
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +67,15 @@ MIDDLEWARE = [
 AUTH_USER_MODEL = 'users.account'
 
 ROOT_URLCONF = 'defom.urls'
+
+
+CORS_ORIGIN_ALLOW_ALL = True #False
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http//:localhost:8000',
+#     'http//:localhost:3000',
+# )
+
 
 TEMPLATES = [
     {
