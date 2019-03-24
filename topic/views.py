@@ -3,8 +3,8 @@ from django.shortcuts import get_list_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Post, Category, Tag, Reply
-from .serializers import PostSerializer, CategorySerializer, TagSerializer, ReplySerializer
+from .models import Post, Category, Reply
+from .serializers import PostSerializer, CategorySerializer, ReplySerializer
 
 import logging
 
@@ -65,19 +65,6 @@ class CategoryView(APIView):
         serializer = CategorySerializer(categories, many=True)
         return Response({"categories": serializer.data})
 
-
-
-#Topic Tag
-class TagList(APIView):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
-    http_method_names = ['get', 'post', 'head']
-
-
-class TagDetail(APIView):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
-    http_method_names = ['get', 'post', 'head']
 
 
 #Topic Replies
