@@ -31,7 +31,7 @@ class PostView(APIView):
             serializer = PostSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 post_saved = serializer.save(user_id = request.user.id)
-                return Response({"success": "Post '{}' created successfully".format(post_saved.title)})
+                return Response({"success": "Post created","post_id":post_saved.id,"post_slug":post_saved.slug})
         else:
             return Response({"error": "Please login"})
 
@@ -51,6 +51,18 @@ class PostView(APIView):
     #     post = get_object_or_404(Post.objects.all(), pk=pk)
     #     post.delete()
     #     return Response({"message": "Post with id `{}` has been deleted.".format(pk)},status=204)
+
+
+#Topic Category Post
+class CategoryPostView(APIView):
+    
+    #Posts
+    def get(self, request, category=None):
+        if category:
+            post = get_list_or_404(Post.objects.all(), category=category)
+            serializer = PostSerializer(post, many=True)
+            return Response({"posts": serializer.data})
+
 
 
 #Topic Category

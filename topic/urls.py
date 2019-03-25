@@ -3,8 +3,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from topic import views
 
 urlpatterns = [
-    path('posts/', views.PostView.as_view()),
+    path('posts/',  views.PostView.as_view()),
     path('posts/<int:pk>', views.PostView.as_view()),
+
+    path('category-posts/<int:category>', views.CategoryPostView.as_view()),
 
     path('categories/', views.CategoryView.as_view()),
     path('category/<int:pk>/', views.CategoryView.as_view()),
